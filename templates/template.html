@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<!--From https://codepen.io/frytyler/pen/EGdtg-->
+
+<head>
+  <meta charset="UTF-8">
+  <title>Fruit Classifier</title>
+  <link href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Arimo' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Hind:300' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+
+  <style>
+    ::placeholder {
+      color: rgb(13, 13, 14);
+      opacity: 0.8;
+      /* Firefox */
+      font-weight: bold;
+    }
+  </style>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+
+  <script>
+
+    $("#file-picker").change(function () {
+
+      var input = document.getElementById('file-picker');
+
+      for (var i = 0; i < input.files.length; i++) {
+        var ext = input.files[i].name.substring(input.files[i].name.lastIndexOf('.') + 1).toLowerCase()
+
+        if ((ext == 'jpg') || (ext == 'png')) {
+          $("#msg").text("Files are supported")
+        }
+        else {
+          $("#msg").text("Files are NOT supported")
+          document.getElementById("file-picker").value = "";
+        }
+
+      }
+
+
+    });
+
+  </script>
+
+</head>
+
+<body>
+  <div class="container-xxl">
+    <div class="row">
+      <div class="col-12">
+        <marquee direction="left" style="color: orangered;">
+          <h3>Classifying Fruit image</h3>
+        </marquee>
+        <div class="auth-card">
+          <div class="" style="color: orangered;">
+            <strong style="color: orangered; ">Uploaded Image:</strong>
+            <br><br>
+            <img src=" {{url_for('send_image', filename=image_name)}}" style="width:300px;height:300px;">
+
+            <br>
+            <div class="mt-3 fs-2 fw-bold">{{text}}</div>
+            <form class="d-flex " id="upload-form" action="{{ url_for('upload') }}" method="POST"
+              enctype="multipart/form-data">
+              <div>
+              <input class="btn-btn   " type="file" name="file" accept="image/*" multiple>
+            </div>
+            <div>
+              <input type="submit" value="Classify !" class="btn-btn ms-4 ">
+            </div>
+              <!-- <a class="btn btn-primary btn-block btn-large" href="/" role="button">NHẬN DẠNG HÌNH ẢNH KHÁC</a> -->
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
+</body>
+
+</html>
